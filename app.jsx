@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
 class Button extends React.Component{
   constructor(props){
     super(props);
@@ -18,6 +19,44 @@ class Button extends React.Component{
   }
 }
 
+const sounds = [{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
+    name: "Heater-1",
+    trigger: "q"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
+    name: "Heater-2",
+    trigger: "w"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
+    name: "Heater-3",
+    trigger: "e"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
+    name: "Heater-4_1",
+    trigger: "a"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
+    name: "Heater-6",
+    trigger: "s"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
+    name: "Dsc_Oh",
+    trigger: "d"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
+    name: "Kick_n_Hat",
+    trigger: "z"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
+    name: "RP4_KICK_1",
+    trigger: "x"
+  },{
+    url: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+    name: "Cev_H2",
+    trigger: "c"
+  }];
+
 class Drum extends React.Component{
   constructor (props){
     super(props);
@@ -26,10 +65,10 @@ class Drum extends React.Component{
   render(){
     return(
       <div id="drum-machine" className="container text-center">
-              <div id="display">
+              <div id="display p-3 text-center">
               
               </div>
-              <div className="row">
+              <div className="d-flex flex-column">
                 <div className="col-md-4 d-flex">
                   <Button text="Q" />
                   <Button text="W" />
@@ -72,8 +111,7 @@ class Main extends React.Component {
   }
 }
 
-
 ReactDOM.render(
   <Main />,
-  document.getElementById('react-app')
+  document.getElementById('drum-app')
 );
