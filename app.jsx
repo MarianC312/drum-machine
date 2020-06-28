@@ -1,25 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-class Button extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      text: this.props.text,
-      id: this.props.text
-    };
-  }
-  render(){
-    return(
-      <div id={this.state.id} className="drum-pad btn btn-outline-primary m-1 rounded-0 p-3">
-        {this.state.text}
-      </div>
-    )
-  }
-}
-
-const sounds = [{
+const sound = [{
     url: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
     name: "Heater-1",
     trigger: "q"
@@ -57,32 +39,63 @@ const sounds = [{
     trigger: "c"
   }];
 
+class Button extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      audio: sound.filter(obj => obj.trigger == this.props.text.toLowerCase())
+    };
+  }
+  render(){
+    //console.log(this.state.audio[0]);
+    return(
+      <div id={"sound-" + this.state.audio[0].trigger} onClick={this.props.action} className="drum-pad btn btn-outline-primary rounded-0 p-3">
+        <audio className='clip' id={this.state.audio[0].trigger.toUpperCase()} name={this.state.audio[0].name} src={this.state.audio[0].url}></audio>
+        {this.state.audio[0].trigger.toUpperCase()}
+      </div>
+    )
+  }
+}
+
 class Drum extends React.Component{
   constructor (props){
     super(props);
+    this.playSound = this.playSound.bind(this);
+  }
+  
+  componentDidMount(){
+    document.addEventListener("keydown", this.playSound);
+  }
+  
+  playSound(e){
+    if(e.key != undefined){
+      const sound = document.getElementById("sound-" + e.key).querySelector('audio');
+    }else{
+      const sound = e.target.querySelector('audio');
+    }
+    document.getElementById("display").innerHTML = sound.getAttribute("name");
+    sound.play();
   }
   
   render(){
     return(
-      <div id="drum-machine" className="container text-center">
-              <div id="display p-3 text-center">
-              
-              </div>
+      <div id="drum-machine" className="container text-center p-2">
+              <div id="display" className="p-3 text-center"></div>
               <div className="d-flex flex-column">
                 <div className="col-md-4 d-flex">
-                  <Button text="Q" />
-                  <Button text="W" />
-                  <Button text="E" />
+                  <Button text="Q" action={this.playSound} />
+                  <Button text="W" action={this.playSound} />
+                  <Button text="E" action={this.playSound} />
                 </div>
                 <div className="col-md-4 d-flex">
-                  <Button text="A" />
-                  <Button text="S" />
-                  <Button text="D" />
+                  <Button text="A" action={this.playSound} />
+                  <Button text="S" action={this.playSound} />
+                  <Button text="D" action={this.playSound} />
                 </div>
                 <div className="col-md-4 d-flex">
-                  <Button text="Z" />
-                  <Button text="X" />
-                  <Button text="C" />
+                  <Button text="Z" action={this.playSound} />
+                  <Button text="X" action={this.playSound} />
+                  <Button text="C" action={this.playSound} />
                 </div>
               </div>
                
