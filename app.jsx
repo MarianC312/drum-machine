@@ -68,10 +68,11 @@ class Drum extends React.Component{
   }
   
   playSound(e){
+    let sound;
     if(e.key != undefined){
-      const sound = document.getElementById("sound-" + e.key).querySelector('audio');
+      sound = document.getElementById("sound-" + e.key.toLowerCase()).querySelector('audio');
     }else{
-      const sound = e.target.querySelector('audio');
+      sound = e.target.querySelector('audio');
     }
     document.getElementById("display").innerHTML = sound.getAttribute("name");
     sound.play();
